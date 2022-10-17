@@ -1,0 +1,52 @@
+#tableimage {
+  width: 75px;
+  height: 75px;
+  transition: transform 0.2s;
+}
+
+#tableimage:hover {
+  opacity: 0.8;
+  transform: scale(1.6);
+}
+
+#table {
+  border: 1px solid;
+}
+
+h4 {
+  color: rgb(206, 124, 124);
+}
+
+h4:hover {
+  color: rgb(141, 141, 141);
+}
+
+.card-body {
+  background-color: rgba(39, 36, 36, 0.116);
+}
+
+#carouselimage {
+  transition: transform 0.2s;
+}
+
+#carouselimage:hover {
+  opacity: 0.8;
+  transform: scale(1.2);
+}
+
+.myinput {
+  outline: 1px solid #0198fa;
+  padding: 1px 1px;
+  border: 5px solid transparent;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  align-content: center;
+}
+
+.myinput:hover {
+  outline: 0px solid transparent;
+  padding: 1px 1px;
+  border: 5px solid #0198fa;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}

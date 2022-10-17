@@ -1,0 +1,10 @@
+#app_div{
+  background-image:url(../assets/images/istockphoto-1337977426-170667a.jpg);
+  background-repeat:no-repeat;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  font-weight: 100;
+  font-style: italic;
+}
+

@@ -1,0 +1,46 @@
+<a href="http://localhost:4200/product">go to products</a>
+<div class="container mt-5">
+  <div class="input-group row">
+    <input id="myinput" type="search" class="form-control rounded col-2" [(ngModel)]="searchvalue"
+      placeholder="Product Name" />
+    <input id="myinput" type="text" class="form-control rounded col-2" [(ngModel)]="valuefrom"
+      placeholder="Price From" />
+    <input id="myinput" type="text" class="form-control rounded col-2" [(ngModel)]="valueto" placeholder="Price To" />
+    <button type="button" class="btn btn-outline-primary col-2" (click)="search()">Search</button>
+    <button type="button" class="btn btn-outline-success col-2" (click)="resetvalue()">Reset</button>
+    <button type="button" class="btn btn-outline-danger col-2" (click)="extractxlsx()">Extract xls</button>
+  </div>
+</div>
+<div id="table" class="container mt-5">
+  <h4><b>My Order</b></h4>
+  <table id="tableId" class="table table-dark table-striped text-center">
+    <thead>
+      <tr>
+        <td>Ref</td>
+        <td>Image</td>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Total Price</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of arr_from_inputs| paginate: { itemsPerPage: count, currentPage: p}">
+      <tr>
+        <td>{{item.id}}</td>
+        <td><img id="tableimage" class="card-img-top img-fluid  " src={{item.img}} alt="Card image cap"></td>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.totalprice}}</td>
+        <td><input type="button" class="btn btn-outline-success" value="View"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="pagination">
+  <pagination-controls (pageChange)="p = $event">
+  </pagination-controls>
+</div>
+<div id="divalert" class="container row">
+</div>
