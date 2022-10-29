@@ -4,12 +4,12 @@
   <carousel [loop]="true" [cellsToScroll]="1" [width]=1100 [height]=400 class="carousel--slider-alignment mt-5 bg-dark">
     <div *ngFor="let product of productlist" class="carousel-cell ">
       <div class="card card-border-none ">
-        <img id="carouselimage" class="card-img-top img-fluid " src={{product.img}} alt="Card image cap">
+        <img id="carouselimage" class="card-img-top img-fluid " src={{product.productimage}} alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title text-center">{{product.name}}</h5>
-          <p class="card-text text-center"><b class="global-text-color mr-1">{{product.price}}</b>USD</p>
+          <h5 class="card-title text-center">{{product.productName}}</h5>
+          <p class="card-text text-center"><b class="global-text-color mr-1">{{product.productprice}}</b>USD</p>
           <div class="d-flex justify-content-center">
-            <input type="checkbox" [(ngModel)]="product.selected" [value]="product.id" (change)="getproduct($event)">
+            <input type="checkbox" [(ngModel)]="product.selected" [value]="product.productId" (change)="getproduct($event)">
             <label>ADD TO CART</label>
           </div>
         </div>
@@ -33,13 +33,13 @@
     <tbody>
 
       <tr *ngFor="let product of checkedproducts">
-        <td><img id="tableimage" class="card-img-top img-fluid  " src={{product.img}} alt="Card image cap"></td>
-        <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
+        <td><img id="tableimage" class="card-img-top img-fluid  " src={{product.productimage}} alt="Card image cap"></td>
+        <td>{{product.productname}}</td>
+        <td>{{product.productprice}}</td>
         <td><input class="myinput" type="number" [value]="product.quantity" min="1" max="10"
             [(ngModel)]="product.quantity"></td>
-        <td>{{product.price * product.quantity}}</td>
-        <td><input type="button" class="btn btn-outline-danger" value="Delete" (click)="deleteRow(product.id)"></td>
+        <td>{{product.productprice * product.quantity}}</td>
+        <td><input type="button" class="btn btn-outline-danger" value="Delete" (click)="deleteRow(product.orderId)"></td>
       </tr>
       <tr>
         <td>
@@ -47,7 +47,7 @@
         </td>
         <td colspan="3"></td>
         <td> <input class="myinput" type="text" readonly=true value={{total}}></td>
-        <td><button class="btn btn-outline-primary">Purchase</button></td>
+        <td><button class="btn btn-outline-primary" (click)="makeorder()">Purchase</button></td>
       </tr>
     </tbody>
   </table>

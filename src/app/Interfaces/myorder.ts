@@ -1,8 +1,8 @@
-export interface myorder {
-  id: number;
-  name: string;
-  price: number;
-  img: string;
-  quantity: number;
-  totalprice: number;
+export class myorder {
+  orderId: number
+  productname: string
+  productprice: number
+  productimage: string
+  quantity:number
+  totalprice: number
 }

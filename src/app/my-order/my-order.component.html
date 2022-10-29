@@ -27,10 +27,10 @@
     </thead>
     <tbody *ngFor="let item of arr_from_inputs| paginate: { itemsPerPage: count, currentPage: p}">
       <tr>
-        <td>{{item.id}}</td>
-        <td><img id="tableimage" class="card-img-top img-fluid  " src={{item.img}} alt="Card image cap"></td>
-        <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
+        <td>{{item.orderId}}</td>
+        <td><img id="tableimage" class="card-img-top img-fluid  " src={{item.productimage}} alt="Card image cap"></td>
+        <td>{{item.productname}}</td>
+        <td>{{item.productprice}}</td>
         <td>{{item.quantity}}</td>
         <td>{{item.totalprice}}</td>
         <td><input type="button" class="btn btn-outline-success" value="View"></td>

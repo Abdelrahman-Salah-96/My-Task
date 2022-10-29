@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { product } from '../Interfaces/Product';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  _url: string = '/assets/fakedata/productdata.json';
+ /*  _url: string = '/assets/fakedata/productdata.json'; */
 
   constructor(private _http: HttpClient) {}
   getALLProduct(): Observable<product[]> {
-    return this._http.get<product[]>(this._url).pipe(
+    return this._http.get<product[]>(`${environment.APIURL}/Product`).pipe(
       catchError((err) => {
         return throwError(
           err.message ||

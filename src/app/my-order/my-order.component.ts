@@ -32,22 +32,22 @@ export class MyOrderComponent implements OnInit {
   search() {
     if (this.searchvalue !== '') {
       this.arr_from_inputs = this.mydata.filter((obj) => {
-        return obj.name.toLowerCase() === this.searchvalue.toLowerCase();
+        return obj.productname.toLowerCase() === this.searchvalue.toLowerCase();
       });
     }
     if (this.valuefrom && this.valueto !== '') {
       this.arr_from_inputs = this.mydata.filter((obj) => {
         return (
-          obj.price <= parseInt(this.valueto) &&
-          obj.price >= parseInt(this.valuefrom)
+          obj.productprice <= parseInt(this.valueto) &&
+          obj.productprice >= parseInt(this.valuefrom)
         );
       });
     if (this.valuefrom && this.valueto && this.searchvalue !== '') {
        this.arr_from_inputs = this.mydata.filter((obj) => {
          return (
-            obj.price <= parseInt(this.valueto) &&
-            obj.price >= parseInt(this.valuefrom) &&
-            obj.name.toLowerCase() == this.searchvalue.toLowerCase()
+            obj.productprice <= parseInt(this.valueto) &&
+            obj.productprice >= parseInt(this.valuefrom) &&
+            obj.productname.toLowerCase() == this.searchvalue.toLowerCase()
         );
       });
       }

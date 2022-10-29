@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { elementAt } from 'rxjs';
+import { createorder, productinorder1 } from '../Interfaces/createorder';
 import { myorder } from '../Interfaces/myorder';
 import { product } from '../Interfaces/Product';
+import { myorderService } from '../Service/my-order.service';
 import { ProductService } from '../Service/product.service';
 
 @Component({
@@ -13,8 +15,9 @@ export class ProductComponent implements OnInit {
   productlist: product[] = [];
   errormsg;
   checkedproducts: myorder[] = [];
-
-  constructor(private productservice: ProductService) {}
+  order = {} as createorder;
+  Total = 0;
+  constructor(private productservice: ProductService,private myorderservice: myorderService) {}
 
   ngOnInit(): void {
     this.productservice.getALLProduct().subscribe((data) => {
@@ -31,13 +34,13 @@ export class ProductComponent implements OnInit {
     if (check) {
       this.productlist.forEach((element) => {
         let checkedproduct = { totalprice: 0 , quantity:1 } as myorder;
-        if (id == element.id) {
-          checkedproduct.id = element.id;
-          checkedproduct.img = element.img;
-          checkedproduct.name = element.name;
-          checkedproduct.price = element.price;
+        if (id == element.productId) {
+          checkedproduct.orderId = element.productId;
+          checkedproduct.productimage = element.productimage;
+          checkedproduct.productname= element.productName;
+          checkedproduct.productprice = element.productprice;
           checkedproduct.totalprice =
-          checkedproduct.price * checkedproduct.quantity;
+          checkedproduct.productprice * checkedproduct.quantity;
           this.checkedproducts.push(checkedproduct);
         }
       });
@@ -47,11 +50,11 @@ export class ProductComponent implements OnInit {
         window.confirm('Are You Sure,You Want To Delete This Item ?') == true
       ) {
         this.productlist.forEach((element) => {
-          if (id == element.id) {
+          if (id == element.productId) {
             element.selected = false;
 
             this.checkedproducts.forEach((element1) => {
-              if (element1.id == element.id) {
+              if (element1.orderId == element.productId) {
                 const index = this.checkedproducts.indexOf(element1);
                 this.checkedproducts.splice(index, 1);
               }
@@ -64,27 +67,60 @@ export class ProductComponent implements OnInit {
   deleteRow(id) {
     if (window.confirm('Are You Sure,You Want To Delete This Item ?') == true) {
       this.checkedproducts.forEach((element) => {
-        if (id == element.id) {
+        if (id == element.orderId) {
           const index = this.checkedproducts.findIndex(
-            (object) => object.id === id
+            (object) => object.orderId === id
           );
           this.checkedproducts.splice(index, 1);
         }
       });
 
       this.productlist.forEach((element1) => {
-        if (id == element1.id) {
+        if (id == element1.productId) {
           element1.selected = false;
         }
       });
     }
   }
 
+  makeorder()
+  {
+    if (window.confirm('Are You Sure,You Want To Buy Those Items ?') == true)
+    {
+
+     this.order.grandtotal =  this.Total;
+     this.order.productsinorder =[{productid:null,quantity:null,totalprice:null}]
+        this.checkedproducts.forEach(element1 =>{
+              let x = {} as productinorder1;
+              x.productid = element1.orderId
+              x.quantity = element1.quantity
+              x.totalprice = element1.totalprice
+              this.order.productsinorder.push(x)
+        });
+        this.order.productsinorder.shift()
+        this.myorderservice.addneworder(this.order).subscribe(
+          (res) =>
+          {
+            console.log(res)
+          }
+        ),
+        (error) => {
+          this.errormsg = error;
+        };
+    }
+
+    this.checkedproducts=[]
+    this.productlist.forEach((element1) => {
+        element1.selected = false;
+    });
+
+  }
   get total() {
     let price = 0;
     this.checkedproducts.forEach((element) => {
-      price += element.quantity * element.price;
+      price += element.quantity * element.productprice;
     });
+    this.Total = price
     return price;
   }
 }
